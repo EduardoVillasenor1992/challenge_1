@@ -1,6 +1,6 @@
 <?php
 
-include '../lab2/LEDBoard/ledLetters.php';
+include 'index.php';
 
 
 function isFormValid() {
@@ -37,43 +37,6 @@ function displayOrHideForm() {
     }
 }
 
-function numberOfCustomColors($colorPerWord) {
-    global $colorPerWord;
-    if($colorPerWord[0] == "" && ($colorPerWord[1] != "" || $colorPerWord[2] != "")){
-        return false;
-    }
-    elseif($colorPerWord[0] != "" && ($colorPerWord[1] == "" || $colorPerWord[2] == "")){
-        return false;
-    }
-    return true;
-}
- function led($phrase, $color) {
-     global $colorPerCell;
-     global $colorPerWord;
-     global $color;
-     $eachword = explode(" ", $phrase);
-     if($colorPerCell == 'y'){
-         $color = "rainbow";
-     }
-     if((($colorPerWord[0] == "" && $colorPerWord[1] == "" && $colorPerWord[2] == "") && $colorPerCell == 'n') || 
-        (($colorPerWord[0] == "" && $colorPerWord[1] == "" && $colorPerWord[2] == "") && $colorPerCell == 'y')) {
-         for($j = 0; $j < count($eachword); $j++){
-             for ($i = 0; $i < strlen($eachword[$j]); $i++ ) {
-                drawLetter($eachword[$j][$i],$color);
-              }
-              echo "<br />";
-         }
-     }
-     elseif(numberOfCustomColors($colorPerWord) && $colorPerCell == 'n'){
-         for($j = 0; $j < count($eachword); $j++){
-             for ($i = 0; $i < strlen($eachword[$j]); $i++ ) {
-                drawLetter($eachword[$j][$i],$colorPerWord[rand(0,count($colorPerWord) - 1)]);
-              }
-              echo "<br />";
-         }
-     }
-     
- }
 
 $message = $_GET['message'];
 $color = $_GET['color'];
@@ -90,7 +53,7 @@ function dropdown_letters(){
 <!DOCTYPE html>
 <html>
     <head>
-        <title> Lab 4: Custom LED Board</title>
+        <title>Password Challenge</title>
         <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet"> 
         <style>
             @import url("./css/styles.css");
@@ -99,9 +62,6 @@ function dropdown_letters(){
                 border: 0px !important;
             }
             form {
-                /*display:none;  /* Hides form
-                display:block; /*shows form */
-                display: <?=displayOrHideForm()?>;
                 font-size: 1.0em;
                 font-family: 'Orbitron', sans-serif;
             }
@@ -116,20 +76,17 @@ function dropdown_letters(){
           <br /><br />
           Password Length 
           
-          <input id="cpcYes" type="radio" name="six_chars" value="6"><label for="cpcYes">6 characters</label>
-          <input id="cpcNo" type="radio" name="eight_chars" value="8"><label for="cpcNo">8 characters</label>
-          <input id="cpcNo" type="radio" name="ten_chars" value="8"><label for="cpcNo">10 characters</label>
+          <input id="six_chars" type="radio" name="chars" value="6"><label for="six_chars">6 characters</label>
+          <input id="eight_chars" type="radio" name="chars" value="8"><label for="eight_chars">8 characters</label>
+          <input id="ten_chars" type="radio" name="chars" value="8"><label for="ten_chars">10 characters</label>
           
           <br /> <br />
           
           Letters to exclude 
-          <select name="color">
+          <select name="letters_dropdown">
               <?php dropdown_letters() ?>   
           </select>
           <br /> <br />
-          <input id="displayForm" type="checkbox" name="displayForm" checked /><label for="displayForm">Display form again</label>
-          <br /><br />
-          
           
           <input name="submitForm" type="submit" value="Generate Passwords"/>
           
