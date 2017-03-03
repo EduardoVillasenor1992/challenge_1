@@ -15,13 +15,17 @@ $ARR = array();
 function display()
 {
   global $countChar, $count;
+  $wrong = "";
   
-  for($i = 0; $i < $count; $i++)
+  for($i = 0; $i < 6; $i++)
   {
-      for($j = 0; $j < $countChar; $j++)
+      for($j = 0; $j < 10; $j++)
       {
           echo chr(rand(65,91));
+          
+          
       }
+      echo "<br/>";
          
   }
   
@@ -31,3 +35,16 @@ function display()
 
 
 ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> </title>
+    </head>
+    <body>
+        
+        <?php
+            display();
+        ?>
+
+    </body>
+</html>
